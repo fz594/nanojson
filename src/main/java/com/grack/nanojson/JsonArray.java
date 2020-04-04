@@ -68,10 +68,10 @@ public class JsonArray extends ArrayList<Object> {
 	}
 
 	/**
-	 * Returns the {@link JsonArray} at the given index, or null if it does not exist or is the wrong type.
+	 * Returns the {@link JsonArray} at the given index, or an empty one if it does not exist or is the wrong type.
 	 */
 	public JsonArray getArray(int key) {
-		return getArray(key, null);
+		return getArray(key, new JsonArray());
 	}
 
 	/**
@@ -187,10 +187,10 @@ public class JsonArray extends ArrayList<Object> {
 	}
 
 	/**
-	 * Returns the {@link JsonObject} at the given index, or null if it does not exist or is the wrong type.
+	 * Returns the {@link JsonObject} at the given index, or an empty one if it does not exist or is the wrong type.
 	 */
 	public JsonObject getObject(int key) {
-		return getObject(key, null);
+		return getObject(key, new JsonObject());
 	}
 
 	/**
