@@ -66,7 +66,7 @@ public final class JsonReader {
 	 */
 	JsonReader(JsonTokener tokener) throws JsonParserException {
 		this.tokener = tokener;
-		token = tokener.advanceToToken();
+		token = tokener.advanceToToken(false);
 	}
 
 	/**
@@ -244,7 +244,7 @@ public final class JsonReader {
 			throw tokener.createParseException(null, "Unabled to call next() at the root", true); 
 		}
 		
-		token = tokener.advanceToToken();
+		token = tokener.advanceToToken(false);
 
 		if (inObject) {
 			if (token == JsonTokener.TOKEN_OBJECT_END) {
@@ -256,16 +256,16 @@ public final class JsonReader {
 			if (!first) {
 				if (token != JsonTokener.TOKEN_COMMA)
 					throw createTokenMismatchException(JsonTokener.TOKEN_COMMA, JsonTokener.TOKEN_OBJECT_END);
-				token = tokener.advanceToToken();
+				token = tokener.advanceToToken(false);
 			}
 
 			if (token != JsonTokener.TOKEN_STRING)
 				throw createTokenMismatchException(JsonTokener.TOKEN_STRING);
 			key.setLength(0);
 			key.append(tokener.reusableBuffer); // reduce string garbage 
-			if ((token = tokener.advanceToToken()) != JsonTokener.TOKEN_COLON)
+			if ((token = tokener.advanceToToken(false)) != JsonTokener.TOKEN_COLON)
 				throw createTokenMismatchException(JsonTokener.TOKEN_COLON);
-			token = tokener.advanceToToken();
+			token = tokener.advanceToToken(false);
 		} else {
 			if (token == JsonTokener.TOKEN_ARRAY_END) {
 				inObject = states.get(--stateIndex);
@@ -275,7 +275,7 @@ public final class JsonReader {
 			if (!first) {
 				if (token != JsonTokener.TOKEN_COMMA)
 					throw createTokenMismatchException(JsonTokener.TOKEN_COMMA, JsonTokener.TOKEN_ARRAY_END);
-				token = tokener.advanceToToken();
+				token = tokener.advanceToToken(false);
 			}
 		}
 
